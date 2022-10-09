@@ -1,0 +1,29 @@
+import se.lth.cs.ptdc.window.SimpleWindow;
+import java.awt.Color;
+
+public class Colors {
+	public static void main(String[] args) {
+		SimpleWindow w = new SimpleWindow(256, 256, "Colors");
+		
+		int r=0;
+		int g=0;
+		int b=0;
+		
+		
+		for (int i=1; i<=256; i++){
+			
+			
+			
+			for (int a=1; a<=256; a++) {
+				w.moveTo(i, a);
+				w.lineTo(i, a);
+				
+				
+			}
+			
+			
+		}
+		
+	
+	}
+}

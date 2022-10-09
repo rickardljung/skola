@@ -1,0 +1,23 @@
+INDEX VERSION 1.126+/h/d8/e/dat11rjo/ptdc-workspace/.metadata/.plugins/org.eclipse.jdt.core
+1654635368.index
+1189062746.index
+170663234.index
+3141775227.index
+1393721363.index
+2686503099.index
+516116778.index
+1431162455.index
+3408485364.index
+3700754715.index
+1441606366.index
+925624498.index
+1193566714.index
+867644474.index
+783226929.index
+3223902160.index
+1796948596.index
+2040264796.index
+3146079888.index
+575340225.index
+2889915287.index
+406065318.index

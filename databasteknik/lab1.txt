@@ -1,0 +1,118 @@
+3 a) select firstName, lastName 
+from students;
+
+b) select firstName, lastName 
+from students 
+order by lastName;
+
+select firstName, lastName 
+from students 
+order by firstName;
+
+c) select firstName, lastName 
+from students 
+where pNbr like '85%';
+
+d) select firstName, lastName
+from students
+where mod(substr(pNbr, 10, 1), 2) = 0;
+
+e) select count(*)
+from students;
+
+f) select courseName
+ from courses
+ where courseCode like 'FMA%';
+
+g) select courseName
+from courses
+where credits > 7.5
+
+h) select count(*)
+from courses
+where level = 'G1';
+
+select count(*)
+from courses
+where level = 'G2';
+
+select count(*)
+from courses
+where level = 'A';
+
+i) select courseCode
+from takenCourses
+where pNbr = '910101-1234';
+
+j)select courseName from courses where coursecode in (select courseCode from takencourses  where pNbr = '910101-1234');
+
+select courseName 
+from Courses, TakenCourses  
+where Courses.CourseCode = TakenCourses.CourseCode and pnbr = "910101-1234";
+
+k) select sum(credits) from Courses, TakenCourses   
+where Courses.CourseCode = TakenCourses.CourseCode and pnbr = "910101-1234";
+
+l) select avg(grade) from Courses, TakenCourses   where Courses.CourseCode = TakenCourses.CourseCode and pnbr = "910101-1234";
+
+m) select courseCode
+from takencourses
+where pnbr in 
+(select pnbr 
+from students
+where firstname = 'Eva' and lastname = 'Alm');
+
+select coursename
+from courses
+where coursecode in
+(select courseCode
+from takencourses
+where pnbr in 
+(select pnbr 
+from students
+where firstname = 'Eva' and lastname = 'Alm'));
+
+select sum(credits) from Courses, TakenCourses
+where Courses.CourseCode = TakenCourses.CourseCode and pnbr = (select pnbr 
+from students
+where firstname = 'Eva' and lastname = 'Alm');
+
+select avg(grade) from Courses, TakenCourses   where Courses.CourseCode = TakenCourses.CourseCode and pnbr = (select pnbr 
+from students
+where firstname = 'Eva' and lastname = 'Alm');
+
+n) select firstname, lastname
+from students
+where students.pnbr not in
+(select pnbr
+from takencourses);
+
+o) create view HighestGrade as
+select avg(grade) as average, pnbr from TakenCourses group by pnbr;
+
+select firstname, lastname, average
+from students, HighestGrade
+where students.pnbr = HighestGrade.pnbr
+order by average desc;
+
+p) create view totcred as
+select sum(credits) as credits, pnbr 
+from takencourses, courses
+group by pnbr;
+
+select students.pnbr, sum(credits) from courses, students left outer join takencourses on students.pnbr = takencourses.pnbr group by students.pnbr;
+
+ select students.pnbr, sum(credits) from (courses natural join takencourses on courses.coursecode = takencourses.coursecode) left outer join students on students.pnbr = takencourses.pnbr order by students.pnbr;
+
+select sum(credits) from Courses, TakenCourses, students
+where pnbr in
+	(select students.pnbr from students left outer join takencourses on students.pnbr = takencourses.pnbr group by students.pnbr) group by students.pnbr;
+
+
+
+	select students.pnbr, coalesce(sum(credits), 0) from (courses natural join takencourses) right outer join students on students.pnbr = takencourses.pnbr group by students.pnbr;
+
+q) select firstname, lastname, count(firstname, lastname) c
+from students
+group by firstname, lastname
+where c>1;

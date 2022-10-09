@@ -1,0 +1,45 @@
+import se.lth.cs.ptdc.window.SimpleWindow;
+import se.lth.cs.ptdc.square.Square;
+import java.awt.Color;
+
+
+public class PrintSquaresClicks3 {
+	public static void main(String[] args) {
+		SimpleWindow w = new SimpleWindow(600, 600, "PrintSquaresClicks");
+		Color col = new Color (255, 0, 0);
+		
+		Square sq = new Square(0, 0, 50);
+		
+		int x=0;
+		int y=0;
+		
+		while (true) {
+			
+			
+			w.waitForEvent();
+			sq.erase(w);
+			
+			if(w.getEventType () == SimpleWindow.KEY_EVENT) {
+				char ch=w.getKey();
+				
+				if(ch=='r') {
+					col = new Color (255, 0, 0);
+					w.setLineColor(col);
+				}else {
+					col = new Color (0, 0, 0);
+					w.setLineColor(col);
+					
+				}
+					}
+			
+			sq.move(w.getMouseX()-x, w.getMouseY()-y);
+			sq.draw(w);
+			
+			x=w.getMouseX();
+			y=w.getMouseY();
+			
+			
+			
+		
+	}
+} }

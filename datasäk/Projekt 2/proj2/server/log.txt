@@ -1,0 +1,115 @@
+40 requested  View of  12's journal. Fri Feb 28 08:51:05 CET 2014 --> Denied
+40 requested  create 12's journal. Fri Feb 28 08:51:57 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 08:52:05 CET 2014 --> Granted
+40 requested  add to record  12's journal. Fri Feb 28 08:52:30 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 08:52:36 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 08:53:14 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 08:53:17 CET 2014 --> Granted
+40 requested  create 12's journal. Fri Feb 28 08:53:31 CET 2014 --> Granted
+40 requested  create 12's journal. Fri Feb 28 08:53:39 CET 2014 --> Granted
+40 requested  create 12's journal. Fri Feb 28 08:53:46 CET 2014 --> Granted
+40 requested  create 12's journal. Fri Feb 28 08:53:53 CET 2014 --> Granted
+40 requested  View of  1's journal. Fri Feb 28 08:54:00 CET 2014 --> Denied
+40 requested  create 1's journal. Fri Feb 28 08:54:11 CET 2014 --> Granted
+40 requested  View of  1's journal. Fri Feb 28 08:54:12 CET 2014 --> Granted
+40 requested  View of  1's journal. Fri Feb 28 08:54:19 CET 2014 --> Granted
+40 requested  View of  1's journal. Fri Feb 28 08:54:56 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:00:24 CET 2014 --> Granted
+20 requested  View of  12's journal. Fri Feb 28 09:04:03 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:05:52 CET 2014 --> Denied
+40 requested  View of  12's journal. Fri Feb 28 09:05:57 CET 2014 --> Denied
+40 requested  create 12's journal. Fri Feb 28 09:06:16 CET 2014 --> Granted
+40 requested  add to record  12's journal. Fri Feb 28 09:06:32 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:06:34 CET 2014 --> Granted
+40 requested  create 12's journal. Fri Feb 28 09:07:04 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:07:13 CET 2014 --> Granted
+40 requested  add to record  12's journal. Fri Feb 28 09:07:21 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:07:22 CET 2014 --> Granted
+40 requested  View of  10's journal. Fri Feb 28 09:14:30 CET 2014 --> Denied
+40 requested  create 10's journal. Fri Feb 28 09:14:46 CET 2014 --> Granted
+40 requested  View of  10's journal. Fri Feb 28 09:14:48 CET 2014 --> Granted
+40 requested  View of  12's journal. Fri Feb 28 09:21:11 CET 2014 --> Granted
+0 requested  Log in  0's journal. Fri Feb 28 13:52:54 CET 2014 --> Granted
+12 requested  View of  10's journal. Fri Feb 28 13:54:10 CET 2014 --> Denied
+12 requested  View of  10's journal. Fri Feb 28 13:54:46 CET 2014 --> Denied
+0 requested  Log in  0's journal. Fri Feb 28 13:56:27 CET 2014 --> Granted
+12 requested  View of  10's journal. Fri Feb 28 13:56:30 CET 2014 --> Denied
+12 requested  View of  10's journal. Fri Feb 28 13:58:05 CET 2014 --> Denied
+12 requested  View of  12's journal. Fri Feb 28 13:58:16 CET 2014 --> Granted
+12 requested  View of  12's journal. Fri Feb 28 13:58:26 CET 2014 --> Granted
+0 requested  Log in  0's journal. Fri Feb 28 14:00:31 CET 2014 --> Granted
+12 requested  View of  12's journal. Fri Feb 28 14:00:37 CET 2014 --> Granted
+12 requested  View of  12's journal. Fri Feb 28 14:00:44 CET 2014 --> Granted
+12 requested  add to record  12's journal. Fri Feb 28 14:01:55 CET 2014 --> Granted
+0 requested  Log in  0's journal. Fri Feb 28 14:08:00 CET 2014 --> Granted
+12 requested  View of  15's journal. Fri Feb 28 14:08:05 CET 2014 --> Denied
+12 requested  View of  15's journal. Fri Feb 28 14:08:10 CET 2014 --> Denied
+12 requested  View of  12's journal. Fri Feb 28 14:08:15 CET 2014 --> Granted
+0 requested  Loggout 0's journal. Fri Feb 28 14:08:24 CET 2014 --> Granted
+10 requested  Log in  null's journal. Fri Feb 28 14:16:57 CET 2014 --> Granted
+10 requested  View of  10's journal. Fri Feb 28 14:17:00 CET 2014 --> Granted
+10 requested  Log in  null's journal. Fri Feb 28 14:17:26 CET 2014 --> Granted
+10 requested  View of  10's journal. Fri Feb 28 14:17:28 CET 2014 --> Granted
+12 requested  Log in  null's journal. Fri Feb 28 14:17:57 CET 2014 --> Granted
+12 requested  View of  12's journal. Fri Feb 28 14:17:59 CET 2014 --> Granted
+12 requested  Log in  null's journal. Fri Feb 28 14:20:12 CET 2014 --> Granted
+12 requested  View of  12's journal. Fri Feb 28 14:20:31 CET 2014 --> Granted
+12 requested  Loggout 12's journal. Fri Feb 28 14:20:37 CET 2014 --> Granted
+12 requested  Log in  null's journal. Mon Mar 03 16:39:49 CET 2014 --> Granted
+12 requested  View of  10's journal. Mon Mar 03 16:39:57 CET 2014 --> Denied
+12 requested  View of  12's journal. Mon Mar 03 16:40:05 CET 2014 --> Granted
+12 requested  create 12's journal. Mon Mar 03 16:40:40 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 16:40:43 CET 2014 --> Granted
+12 requested  Loggout 12's journal. Mon Mar 03 16:40:49 CET 2014 --> Granted
+43 requested  Log in  null's journal. Mon Mar 03 16:40:58 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:41:00 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 16:41:17 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:41:22 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 16:41:46 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:41:47 CET 2014 --> Granted
+12 requested  Log in  null's journal. Mon Mar 03 16:46:05 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 16:46:08 CET 2014 --> Denied
+12 requested  create 12's journal. Mon Mar 03 16:46:29 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 16:46:33 CET 2014 --> Granted
+12 requested  create 12's journal. Mon Mar 03 16:46:51 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 16:47:00 CET 2014 --> Granted
+12 requested  add to record  12's journal. Mon Mar 03 16:47:24 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 16:47:26 CET 2014 --> Granted
+12 requested  Loggout 12's journal. Mon Mar 03 16:47:53 CET 2014 --> Granted
+43 requested  Log in  null's journal. Mon Mar 03 16:48:02 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:48:03 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 16:48:12 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:48:13 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 16:48:28 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:48:29 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:49:26 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:49:29 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 16:49:35 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 16:49:36 CET 2014 --> Granted
+43 requested  Log in  null's journal. Mon Mar 03 17:00:32 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:00:34 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 17:00:42 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:00:45 CET 2014 --> Denied
+43 requested  Loggout 12's journal. Mon Mar 03 17:01:00 CET 2014 --> Granted
+12 requested  Log in  null's journal. Mon Mar 03 17:01:29 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 17:01:32 CET 2014 --> Denied
+12 requested  create 12's journal. Mon Mar 03 17:01:49 CET 2014 --> Granted
+12 requested  create 12's journal. Mon Mar 03 17:02:02 CET 2014 --> Granted
+12 requested  Loggout 12's journal. Mon Mar 03 17:02:06 CET 2014 --> Granted
+43 requested  Log in  null's journal. Mon Mar 03 17:02:17 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:02:19 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 17:02:32 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:02:34 CET 2014 --> Denied
+43 requested  View of  12's journal. Mon Mar 03 17:02:44 CET 2014 --> Denied
+43 requested  View of  12's journal. Mon Mar 03 17:02:48 CET 2014 --> Denied
+12 requested  Log in  null's journal. Mon Mar 03 17:07:48 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 17:07:50 CET 2014 --> Denied
+12 requested  create 12's journal. Mon Mar 03 17:08:01 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 17:08:06 CET 2014 --> Granted
+12 requested  create 12's journal. Mon Mar 03 17:08:18 CET 2014 --> Granted
+12 requested  View of  12's journal. Mon Mar 03 17:08:19 CET 2014 --> Granted
+12 requested  Loggout 12's journal. Mon Mar 03 17:08:51 CET 2014 --> Granted
+43 requested  Log in  null's journal. Mon Mar 03 17:09:00 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:09:01 CET 2014 --> Granted
+43 requested  delete  12's journal. Mon Mar 03 17:09:13 CET 2014 --> Granted
+43 requested  View of  12's journal. Mon Mar 03 17:09:16 CET 2014 --> Denied

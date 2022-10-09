@@ -1,0 +1,30 @@
+import se.lth.cs.ptdc.window.SimpleWindow;
+import se.lth.cs.ptdc.square.Square;
+
+public class PrintSquaresClicks4 {
+	public static void main(String[] args) {
+		SimpleWindow w = new SimpleWindow(600, 600, "PrintSquaresClicks");
+
+		Square sq = new Square(0, 0, 50);
+
+		int x = 0;
+		int y = 0;
+
+		while (true) {
+
+			w.waitForMouseClick();
+
+			for (int i = 0; i < 100; i++) {
+				
+				sq.erase(w);
+				sq.move((w.getMouseX() - x) / 100, (w.getMouseY() - y) / 100);
+				sq.draw(w);
+				SimpleWindow.delay(50);
+
+			}
+
+			x = w.getMouseX();
+			y = w.getMouseY();
+		}
+	}
+}

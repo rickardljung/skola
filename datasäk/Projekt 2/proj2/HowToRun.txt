@@ -1,0 +1,51 @@
+Start server:
+terminal go to ./proj2
+javac *.java folder "proj2";
+java Server
+
+Start client
+terminal go to ./proj2/client
+javac *.java folder "client";
+java Main
+
+
+Log in with one of following:
+Username: patient1 
+Password: patient1
+(ID = 10)
+
+Username: patient2 
+Password: patient2
+(ID = 20)
+
+Username: patient3 
+Password: patient3
+(ID = 30)
+
+Username: nurse1 
+Password: nurse1
+(ID = 11)
+
+Username: nurse2 
+Password: nurse2
+(ID = 21)
+
+Username: nurse3 
+Password: nurse3
+(ID = 31)
+
+Username: doctor1 
+Password: doctor1
+(ID = 12)
+
+Username: doctor2 
+Password: doctor2
+(ID = 22)
+
+Username: doctor3 
+Password: doctor3
+(ID = 32)
+
+Username: agency
+Password: agency
+(ID = 43)

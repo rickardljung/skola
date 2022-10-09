@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+
+public class Betyg {
+	public static void main(String[] args) {
+		
+		int IG=0;
+		int medel=0;
+		int antalbetyg=0;
+		int betyg=0;
+		
+		System.out.println("Skriv ett antal betyg (0, 3, 4 eller 5)");
+		Scanner scan = new Scanner(System.in);
+		while(betyg>=0) {
+			
+		antalbetyg++;
+		betyg = scan.nextInt();
+		
+		if(betyg==0) {
+			IG++;
+		}
+		
+		else {
+			medel=medel+betyg;
+		}
+			
+		}
+		
+		System.out.println("Antal inlästa betyg:" + antalbetyg);
+		System.out.println("Antalet underkända betyg:" + IG);
+		System.out.println("Medelvärde av de godkända betygen:" + medel/antalbetyg);
+
+		
+	}
+
+}

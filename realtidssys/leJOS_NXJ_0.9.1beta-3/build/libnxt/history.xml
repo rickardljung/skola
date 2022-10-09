@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="gcc -shared -L/home/rickard/Skola/RealTimeSystems/leJOS_NXJ_0.9.1beta-3/build/libnxt -lusb">
+      <target file="libjlibnxt.so" lastModified="1499eaa43d8">
+         <source file="main_jlibnxt.o" lastModified="1499eaa43d8"/>
+      </target>
+   </processor>
+   <processor signature="gcc noversion nomachine-Wall -std=gnu99 -fPIC -c -fPIC -I. -I../../../../../../../usr/lib/jvm/java-7-openjdk-amd64/include -I../../../../../../../usr/lib/jvm/java-7-openjdk-amd64/include/linux">
+      <target file="main_jlibnxt.o" lastModified="1499eaa43d8">
+         <source file="main_jlibnxt.c" lastModified="137958265e0"/>
+      </target>
+   </processor>
+</history>

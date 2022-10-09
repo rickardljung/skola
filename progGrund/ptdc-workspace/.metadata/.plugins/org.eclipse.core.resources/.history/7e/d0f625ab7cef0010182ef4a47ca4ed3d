@@ -1,0 +1,28 @@
+import se.lth.cs.ptdc.window.SimpleWindow;
+import java.awt.Color;
+
+public class Linjer {
+	public static void main(String[] args) {
+		SimpleWindow w = new SimpleWindow(600, 600, "Linjer");
+		
+		int oldX=0;
+		int oldY=0;
+		
+		Color col = new Color(0, 0, 256);
+		w.setLineColor(col);
+		
+		while (true) {
+			
+			w.waitForMouseClick();
+			w.moveTo(oldX, oldY);
+			w.lineTo(w.getMouseX(), w.getMouseY());
+			
+			oldX=w.getMouseX();
+			oldY=w.getMouseY();
+			
+			
+		}
+		
+	
+	}
+}

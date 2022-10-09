@@ -1,0 +1,399 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{listings}		% for listings
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{url}
+\usepackage{float}
+
+\title{GCD, from software to hardware\\\small{(EDAN15 VT15 Final Report)}}
+\author{
+Rickard Johansson, \texttt{dat11rjo@student.lu.se}\\
+Thomas Strahl, \texttt{dat11tst@student.lu.se}
+}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\lstset{
+	language=C,
+	captionpos=b,
+	basicstyle=\footnotesize\ttfamily
+}
+
+\maketitle
+
+\begin{abstract}
+This report compares three different hardware designs. Two {\it Greatest Common Divisor} algoritms are compared and the best one is implemented in hardware using VHDL. The experiments are conducted on a {\it Field-programmable gate array}. The overall speed and complexity of the designs are discussed. Finally the hardware accelerated design proved to be fastest, most energy efficient but requires the most amount of time to implement.
+%Brief description of the report. Context, hypothesis, experiments, results, conclusion. The abstract should contain enough
+%information about the rest of the document, but not too many details. Between 5--10 lines in this format.
+\end{abstract}
+\section{Introduction}
+This laboratory report is a summary of the experiences during four laboratory sessions\cite{lab2}\cite{lab3}\cite{lab4}\cite{lab5} in the course {\it Design of embedded Systems (EDAN15\cite{edan15})} at LTH.  
+
+Two algorithms for calculating {\it Greatest Common Divisor (GCD)} are compared during the labs, one using the {\it Euclidean algorithm\cite{euclidean}} with a modulo operator and the other one a so called {\it Binary algorithm\cite{binary}}. The algorithms are in the first two labs pure software solutions of a GCD written in C but are later on translated and implemented in hardware written in VHDL. 
+
+Three different hardware designs will be examined in the report; {\it Single Processor Design}, {\it Dual Processor Design} and {\it Hardware Accelerated Design}. 
+
+\textit{The rest of the report is organized as follows. Section 2 describes the experimental setup of the four labs, Section 3 the result and discussion and Section 4 is a summary of the report with conclusions, unexpected problems etc.}
+
+
+\section{Experiments}\label{sec:exp}
+
+The three hardware designs are designed and created using {\it Xilinx Platform studio\cite{XPS} (XPS)}. In XPS you can choose the number of processors to be used and how the components will communicate. The processors used in the labs are called {\it Microblaze\cite{microblaze}}. A design created in XPS can be exported and opened in {\it Xilinx Software Development kit\cite{SDK}} where the software can be created.
+
+To build the hardware accelerator, {\it ISE Project Navigator\cite{ISE}} was used. It has the feature to simulate the design which is very helpful when debugging the code.
+
+The complete system was emulated on a {\it Nexys-3 board}, witch contains a {\it Spartan-6} Field Programmable Gate Array (FPGA). When running the system, the FPGA board was connected to a lab computer to be able to see some output.
+
+\subsection{Software algorithms}
+In order to get results which differed significantly between the two algorithms, two very different algorithms were chosen. The {\it euclidean algorithm} contains a modulo operator which in advance was known to be very time consuming. The {\it binary algorithm} on the other hand, avoids using the modulo operation and division by replacing them with arithmetic shifts, subtractions and comparisons.
+
+The software were written so it could not only calculate GCD between two numbers, but for N numbers.
+
+\subsection{Single processor}
+The {\it single processor hardware design} only uses one microblaze processor. To be able to communicate the system consists of a dual block RAM connected to two memory buses and a system bus. To carry out the performance measurements the system also consists of a timer core.
+
+\subsection{Dual processor}
+The design for the {\it dual processor hardware design} is similar to the design above but consists of two microblazes. To be able to share data between the processors {\it Fast Simplex Link (FSL) channels} were added.
+
+The software also had to be updated to divide the work between the processors. The solution to this was to let one processor handles from the user and send half of the input integers to the other processor. Each processor then calculates a GCD for its given values and when both are done the divisor is sent back to the first processor and the final GCD can be calculated.
+
+There are several ways to share data between processors, such as using shared memory or off-chip memory. These solutions were also considered but FSL was chosen in the end because it made the communication between the processors easy. In addition, shared memory is often more suitable for larger amounts of data.
+
+To read and write to the FSL, special instructions were used (readfsl \& writefsl). To test these instructions and to know that the FSL was working as expected it was first tested by sending data over the FSL and then printing it from the other processor.
+
+\subsection{Hardware accelerated}
+To improve the performance for the calculation of GCD a {\it hardware accelerated design} was built. This was made by adding a custom hardware accelerator (a core) to the {\it Single processor design} and FSL channels to be able to send data between them.  
+
+To build the core, a part of the software was translated to VHDL code. It was decided to implement the complete GCD algorithm in VHDL, but just for two integers. This decision was made believing that a GCD for N numbers would be to complex to implement in VHDL. In hindsight it would probably not be so much harder.
+
+When writing the VHDL code, ISE Project Navigators feature to simulate the behaviour of the design was very helpful. It made it possible to test and debug the VHDL code. 
+
+
+
+\section{Measurements and Discussion}
+%This is probably the most important part of the report. In here you must describe the what and how you measure. Describe any specific parts in the hardware architecture or the software that help you conduct measurements. You should use graphs or tables to present your results, such as Table \ref{tab:example} or \ref{tab:example2}, but do not forget to describe the measures and units in the columns or graph axis.
+
+
+
+
+During the laboratory sessions different tools have been used to conduct the measurements. The number of clock cycles used to calculate the results was measured with a C-function called {\it axi\_timer}.\cite{axit} For measuring the power consumption {\it Xpower Analyzer} \cite{xpower} was used. All measurements were done running the code on the FPGA and the frequency was $100 MHz$ for all the experiments. 
+
+The number of inputs to the system affected the result as expected. More data took longer to compute, but not for all data sets. Something to keep in mind that also affects the computation time is the relation between the data. This can clearly be illustrated in table \ref{tab:singbin} were a data set of 100 integers was faster than one with 30 integers. The euclidean algorithm was also faster than the binary with this particular data set see table \ref{tab:singeuc}. It should be slower than the binary algorithm based on the fact that the binary algorithm uses fast binary operations and the euclidean uses modulo. The reason for this must be that the input data is better suited for that type of algorithm and requires fewer clock cycles to compute the answer.   
+
+Not all data sets were used to see the optimization levels impact on the performance. Instead the same three sets were used for that. The performance increase that compiler optimization contributes with will be similar for all the sets. For that reason the sets tested were data set 2, 50 and 100 as shown in the tables. For the euclidean algorithm the optimization seems to have negative impact. It actually performs better with no optimization than when its turned on. This effect can be seen in tables \ref{tab:singeuc} and \ref{tab:dualeuc}. It seems to be optimization level O1 that performs the worst in this case. This is very confusing because optimized code should perform better then non optimized code. It could be that the compiler optimizes incorrectly, but that is highly unlikely. It could also have something to do with the modulo operator. On the other hand that would again indicate that the compiler has optimized the code inaccurately.      
+
+
+ 
+\subsection{Performance}
+All the figures where affected by the fact that the implementations print data to the console was put after the axi\_timer was started. This was discovered after the second lab and for that reason left as it was for consistency reasons. The impact this had on the result was measured on the hardware accelerated solution. It does not matter what implementation it was carried out on because the time it takes to print data to the console is constant. The number of clock cycles that were used to print the data was 1961. That is much for the hardware accelerated implementation, but has no impact on the other implementations.  
+
+The euclidean algorithm is slow because of the modulus operation and not so affected by the number of loops it takes to calculate the answer. The binary implementation uses fast bit wise operations and is mostly affected by data sets that require a lot of iterations. That indicates that the data set of 30 integers requires several iterations to compute the result and moreover lowers the performance. 
+
+%Discuss how and why the figures are different in between solutions. Discuss how these figures are different from your expectation. For example, should a dual processor system be twice faster than a single processor system? Is it? Why?
+%How about compiler optimizations? 
+
+
+\subsubsection{Single Processor}
+The single processor implementation is the easiest solution to implement. Code examples for different algorithms can be found online and be used. A simple hardware design can be used and no understanding of partitioning or FSL is needed. If performance has low priority and time used to implement is important then this solution could be considered.  
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Binary GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & cycles O0 & cycles O1 & cycles O2\\
+      \midrule
+      2      & 621637 & 618395 & 617100\\
+      10       & 726446 & - & -\\
+      30       & 622935 & - & -\\
+      50 & 934773 & 934135  & 936731\\
+      70 & 827993 &  - & -\\
+      100 & 828645 & 823462 & 824119\\
+      \bottomrule
+   \end{tabular}
+   \caption{Number of clock cycles for the binary GCD algorithm for different optimization levels and input sizes.}
+   \label{tab:singbin}
+\end{table}
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Euclidean GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & cycles O0 & cycles O1 & cycles O2\\
+      \midrule
+      2      & 836544 & 839786 & 841076\\
+      10       & 835898 & - & -\\
+      30       & 835240 & - & -\\
+      50 & 835896 & 836523  & 833931\\
+      70 & 838520 &  - & -\\
+      100 & 837841 & 843035 & 842380\\
+      \bottomrule
+   \end{tabular}
+   \caption{Number of clock cycles for the euclidean GCD algorithm for different optimization levels and input sizes.}
+   \label{tab:singeuc}
+\end{table}
+
+
+
+\subsubsection{Dual processor}
+This solution was considerably harder to implement. It requires partitioning to decide what part of the algorithm that should be used where. With out clever partitioning this implementation will not be faster. 
+
+It is tempting to think that a dual processor design should be twice as fast. The data clearly shows that that is not the case. As described above (see section 2.3) the dual processor design needs to send data between the two processors. Theoretically a system with dual processors should be twice as fast as a system with one. The problem is that even though the input data is halved the overhead is increased. Using FSL to send the data will be part of the execution time, but does not contribute to the calculations. 
+
+For most of the input sets the number of clock cycles were slightly decreased while using a dual processor design but the improvement is hardly noticeable. It is possible that a system with shared memory would be faster than the system that was used in this report, but no measurements on that type of system were conducted and can therefor only be based on speculation. With shared memory the data would be present in the memory at all time and no FSL sending data between the processors would be needed. If the bottleneck for our system is read and write data, which it probably is, then a shared memory system would be slowed down by wait times to write and read data. The dual processor design is probably the worst system if execution speed is compared to time spent implementing it.        
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Binary GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & cycles O0 & cycles O1 & cycles O2\\
+      \midrule
+      2  & 617100 & 617100 & 617100\\
+      10 & 726955 & - & -\\
+      30 & 619286 & - & -\\
+      50 & 936086 & 930643  & 928038\\
+      70 & 827136 &  - & -\\
+      100 & 829378 & 827224 & 832436\\
+      \bottomrule
+   \end{tabular}
+   \caption{Number of clock cycles for the binary GCD algorithm for different optimization levels and input sizes.}
+   \label{tab:dualbin}
+\end{table}
+
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Euclidean GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & cycles O0 & cycles O1 & cycles O2\\
+      \midrule
+      2  & 841076 & 841076 & 841076\\
+      10 & 835401 & - & -\\
+      30 & 838900 & - & -\\
+      50 & 834559 & 840035  & 842628\\
+      70 & 839346 &  - & -\\
+      100 & 837111 & 839275 & 834063\\
+      \bottomrule
+   \end{tabular}
+   \caption{Number of clock cycles for the euclidean GCD algorithm for different optimization levels and input sizes.}
+   \label{tab:dualeuc}
+\end{table}
+
+
+\subsubsection{Hardware accelerated}
+Implementing the algorithm in VHDL was the most time consuming approach. At the same time it generated the best end result. It took several lab sessions to design the state machine and then implementing it in VHDL. 
+
+The performance increase the hardware accelerated core provided was far greater than expected. The algorithm was chosen with hardware in mind, but for some data sets this solution was almost 600 times faster compared to the single processor design. The optimization level also contributes more to the overall speed of the program. 
+
+An other interesting thing is that the number of clock cycles is more linear to the input size compared to a single processor or dual processors where larger sets of data where faster then smaller sets of data. This implementation was not trivial, but the result speaks for it self. If execution time is most important this solution should be the preferred one.       
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{state_machine.jpg}
+\caption{State machine design for the hardware accelerated system. Detailed description of the transitions is present in table \ref{tab:tran}.}
+\label{img:sm}
+\end{figure}
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Binary GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Transition   & Condition\\
+      \midrule
+      T1  & if (Exists = 0) \\
+      T2  & if (Exists = 1) \\
+      T3  & if (Cready = 1)\\
+      T4  & if (CU = 0 or CV = 0)\\
+      T5  & if (Full = 1)\\
+      T6  & if (Cready = 0)\\
+      T7  & if (CU /= 0 and CV /= 0)\\
+      T8  & if (((CU or CV) and "1") = "0")\\
+      T9  & if (((CU or CV) and "1") /= "0")\\
+      T10  & if ((CU and "1") = "0")\\
+      T11  & if ((CU and "1") /= "0")\\
+      T12  & if ((CV and 1) = 0)\\
+      T13  & if ((CV and 1) != 0)\\
+      T14  & if (true)\\
+      T15  & if (CV != 0)\\
+      T16  & if (CV = 0)\\
+      T17  & if (Cshift = 0)\\
+      T18  & if (Cshift != 0)\\
+
+      \bottomrule
+   \end{tabular}
+   \caption{The conditions for each transition in the state machine.}
+   \label{tab:tran}
+\end{table}
+
+
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Binary GCD} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & cycles O0 & cycles O1 & cycles O2\\
+      \midrule
+      2  & 1048 & 1016 & 1015\\
+      10 & 2021 & - & -\\
+      30 & 2976 & - & -\\
+      50 & 4953 & 4057  & 4056\\
+      70 & 6655 &  - & -\\
+      100 & 6755 & 4959 & 4958\\
+      \bottomrule
+   \end{tabular}
+   \caption{Number of clock cycles for the binary GCD algorithm for different optimization levels and input sizes.}
+   \label{tab:hw}
+\end{table}
+
+
+\subsection{Device Utilization}
+%Give the FPGA resources consumed by each of your solutions. Explain how these relate to each other -- e.g. whether a dual processor system has double the area of a single processor system and how do these relate to the hardware accelerated solution. Explain why or how using different algorithms influences or not the device utilization.
+As one can see in table \ref{tab:dev} the number of Look Up Tables (LUT) and registers are doubled for a dual processor system compared to the single processor design. It is very reasonable that a dual processor system uses twice the amount of resources because it has an extra core with its own memory.
+
+The hardware accelerated system has a slightly higher device utilization then the single processor as expected. After all the hardware accelerated design has a hardware core that uses registers and LUTs. 
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Device utilization} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+   circuit  & single    & dual & hw accelerated \\
+      \midrule
+      LUT  & 2286 & 4248 & 2686\\
+      Registers & 1684 & 2980 & 1848\\
+      
+      \bottomrule
+   \end{tabular}
+   \caption{The number of registers and LUTs used by the different system designs.}
+   \label{tab:dev}
+\end{table}
+
+
+\subsection{Power and Energy}
+The power used for the different designs are listed in table \ref{tab:power}. The power is given in watt [J/s]. With the number of clock cycles and the frequency that the system was running at the energy consumption can be calculated. The frequency is given in Hz which is cycles per second. With the help of the following calculations the energy consumption for the different data sets and systems can be calculated. 
+
+\begin{equation}
+T = 1/f 
+\end{equation}
+
+\begin{equation}
+C = clock cycles
+\end{equation}
+
+\begin{equation}
+P = power from XPower Analyzer
+\end{equation}
+
+\begin{equation}
+E = T*C*P
+\end{equation}
+
+
+% Requires the booktabs if the memoir class is not being usd
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{@{} lcr @{}} % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Power consumption} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Single processor (W)    & Dual processor (W) & Hardware accelerated (W)\\
+      \midrule
+      0.163      & 0.177 & 0.167 \\
+      \bottomrule
+   \end{tabular}
+   \caption{The power consumption in WATTS measured with XPower Analyzer.}
+   \label{tab:power}
+\end{table}
+%The power and energy consumption are also important for a design. The XPower Analyser that comes with the Xilinx ISE helps you determine the power consumption for your designs. Have a look at the hierarchical breakdown of power consumption and identify the parts of your design that consume a lot of power. Also, as you know energy is the time integral of power:
+%\begin{equation}
+%E = \int_{t_1}^{t_2} P dt \approx P \Delta t
+%\end{equation}
+
+As expected the design with two processors uses more power then a design with one processor and the hardware accelerated design uses more than a single processor, but less then the dual processor design. The energy used is then affected by the execution time and that is where the hardware accelerated design comes out a head.  
+
+\begin{table}[H]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{ l l l l  } % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Calculated energy consumption} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Input size    & Single processor & Dual processor & Hardware accelerated\\
+      \midrule
+      2  & 841076 & 841076 & 841076\\
+      50 & 834559 & 840035  & 842628\\
+      100 & 837111 & 839275 & 834063\\
+      \bottomrule
+   \end{tabular}
+   \caption{The energy consumption for the different systems with different data inputs.}
+   \label{tab:energy}
+\end{table}
+%How do your different solutions compare from the power and energy consumption point of view?
+
+\section{Summary}
+%In this part you briefly summarize your report. Continue with conclusions, lessons learned, unexpected results, unsolved problems or other issues that remain open. Relate back to the content of the course and explain whether or how the laboratory work helped you or not with understanding certain issues from the theoretical part.
+The Greatest Common Divisor algorithm started completely in software and was gradually improved with different techniques. Some of which did not offer so much improvement. The dual processor design required a fair amount of time to set up the hardware and did not provide a great improvement. The hardware accelerated design was worth the time invested in it. That design was not only faster then all the other designs, but also uses less energy due to shorter execution time. After the labs in this course one can see that more hardware is not always better. According to the measurements in table \ref{tab:power} and table \ref{tab:singbin} for input size 100 the dual processor design is not only slower than a single processor design. It also uses more energy to compute the answer. 
+
+The most surprising result in this report was that the optimization level did not always improve the execution time. As stated earlier the optimization caused the system to perform slower than with no optimization. This is still a mystery that lacks explanation. If the system had been running on a computer with an operating system the execution could be affected by other processes, but that is not the fact on a FPGA. Increasing the optimization level must not always improve the performance, but it should never lower the performance. An other surprising thing was the huge improvement in speed when comparing the hardware accelerated design to the dual- and signal processor designs.   
+
+
+When designing embedded systems performance and power are important parameters. Depending on the application the chip needs different properties. The size of the chip is also important if space is limited. For example a pacemaker should be small and power efficient, while a computer should be fast and responsive. This is the classic trade off one must face in embedded system design.    
+
+
+
+
+
+
+
+
+
+\begin{thebibliography}{1}
+	%\bibitem{namn} LÄNK besökt DD-MM-ÅÅÅÅ alternativt FÖRFATTARE, \emph {TITEL}. FÖRLAG, STAD, ÅR.
+
+\bibitem{lab2} http://fileadmin.cs.lth.se/cs/Education/EDAN15/2013labs/lab2/EDA380Lab2.pdf, accessed 15-05-2015
+\bibitem{lab3} http://fileadmin.cs.lth.se/cs/Education/EDAN15/2013labs/lab3/EDA380Lab3.pdf, accessed 15-05-2015
+\bibitem{lab4} http://fileadmin.cs.lth.se/cs/Education/EDAN15/2013labs/lab4/EDA380Lab4.pdf, accessed 15-05-2015
+\bibitem{lab5} http://fileadmin.cs.lth.se/cs/Education/EDAN15/2013labs/lab5/EDA380Lab5.pdf, accessed 15-05-2015
+\bibitem{edan15} http://cs.lth.se/edan15/, accessed 15-05-2015
+\bibitem{XPS} http://www.xilinx.com/tools/xps.htm, accessed 15-05-2015
+\bibitem{microblaze} http://www.xilinx.com/tools/microblaze.htm, accessed 15-05-2015
+\bibitem{ISE} http://fileadmin.cs.lth.se/cs/Education/EDAN15/2013labs/lab2/EDA380Lab2.html, accessed 15-05-2015
+\bibitem{euclidean} http://en.wikipedia.org/wiki/Euclidean\_algorithm, accessed 15-05-2015
+\bibitem{binary} http://en.wikipedia.org/wiki/Binary\_GCD\_algorithm, accessed 15-05-2015
+\bibitem{SDK} http://www.xilinx.com/tools/sdk.htm, accessed 15-05-2015    
+\bibitem{axit} http://www.xilinx.com/products/intellectual-property/axi\_timer.html, accessed 15-05-2015
+\bibitem{xpower} http://www.xilinx.com/products/design\_tools/logic\_design/verification/xpower\_an.htm, accessed 15-05-2015
+\end{thebibliography}
+
+  
+\bibliographystyle{plain}
+\bibliography{abibfile}
+
+\end{document}  

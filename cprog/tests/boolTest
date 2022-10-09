@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+
+int main()
+{
+	_Bool b = 0;
+
+	if(b = 0)
+		printf("b är noll!\n", );
+	else
+		printf("b är ett!\n");
+
+
+	
+}
